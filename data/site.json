@@ -4,7 +4,18 @@
     "eyebrow": "数字内容 · 娱乐直播 · 艺人孵化",
     "headline": "无限热爱 · 无限可能",
     "subtitle": "让每一种热爱，都有闪耀的舞台",
-    "description": "我们是一家专注数字内容创作、直播运营与人才孵化的创新传媒机构。通过专业空间、创意团队和成长体系，陪伴每一位创作者探索更多可能。",
+    "description": "鑫海传媒专注直播电商、短视频内容创作、主播孵化与品牌营销，以专业团队和创意内容帮助品牌与创作者实现成长。",
+    "aboutTagline": "以内容为核心，以创意为驱动。让每一个闪光的想法，都值得被认真看见。",
+    "footerTagline": "XINHAI MEDIA · CREATE INSPIRE GROW",
+    "copyright": "鑫海传媒 · 版权所有",
+    "businessHeading": "核心业务",
+    "businessIntro": "以专业与热爱，创造更多可能",
+    "galleryHeading": "团队与空间",
+    "galleryIntro": "让创意自由发生的地方",
+    "jobsHeading": "开放职位",
+    "jobsIntro": "选择适合你的舞台",
+    "contactHeading": "联系我们",
+    "contactIntro": "期待与你一起，开启下一个精彩故事。",
     "phone": "400-000-0000",
     "address": "示例地址 · 请在后台修改",
     "email": "hello@example.com",
@@ -12,10 +23,17 @@
     "heroImage": "https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg",
     "aboutImage": "https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg"
   },
+  "stats": [
+    {"value":"5000","unit":"㎡","label":"创意空间"},
+    {"value":"20","unit":"+","label":"专业场景"},
+    {"value":"60","unit":"+","label":"团队伙伴"},
+    {"value":"100","unit":"+","label":"成长创作者"}
+  ],
   "businesses": [
-    {"id":1,"title":"直播内容孵化","desc":"从内容定位、场景搭建到运营增长，提供一站式直播解决方案。","icon":"✦"},
-    {"id":2,"title":"艺人经纪培养","desc":"系统化培训与成长陪伴，打造多元化创作者矩阵。","icon":"✧"},
-    {"id":3,"title":"品牌内容营销","desc":"融合创意策划、视频制作与传播运营，释放品牌价值。","icon":"◈"}
+    {"id":1,"title":"直播运营","desc":"从内容定位、场景搭建到运营增长，提供一站式直播解决方案。","icon":"✦"},
+    {"id":2,"title":"短视频制作","desc":"融合创意策划、拍摄剪辑与内容运营，持续打造优质作品。","icon":"✧"},
+    {"id":3,"title":"主播孵化","desc":"系统化培训与成长陪伴，打造多元化创作者矩阵。","icon":"◈"},
+    {"id":4,"title":"品牌推广","desc":"整合创意内容与传播运营，帮助品牌提升影响力。","icon":"◇"}
   ],
   "jobs": [
     {"id":1,"title":"娱乐主播","type":"全职 / 兼职","salary":"薪资面议","desc":"热爱镜头表达，有责任心；经验不限，提供系统培训。"},
@@ -23,9 +41,11 @@
     {"id":3,"title":"短视频编导","type":"全职","salary":"薪资面议","desc":"负责选题策划、拍摄脚本和内容制作。"}
   ],
   "gallery": [
-    {"id":1,"title":"创意办公空间","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌视觉"},
-    {"id":2,"title":"专业直播空间","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌视觉"},
-    {"id":3,"title":"团队协作现场","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌视觉"}
+    {"id":1,"title":"专业直播间","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌主视觉"},
+    {"id":2,"title":"主播培训","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌主视觉"},
+    {"id":3,"title":"短视频制作","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌主视觉"},
+    {"id":4,"title":"办公环境","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌主视觉"},
+    {"id":5,"title":"团队文化","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌主视觉"}
   ],
   "messages": [],
   "applications": []
