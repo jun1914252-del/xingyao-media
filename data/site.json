@@ -20,32 +20,111 @@
     "address": "示例地址 · 请在后台修改",
     "email": "hello@example.com",
     "accent": "#d9b77c",
-    "heroImage": "https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg",
-    "aboutImage": "https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg"
+    "heroImage": "/xinhai-media-hero.svg",
+    "aboutImage": "/xinhai-media-hero.svg"
   },
   "stats": [
-    {"value":"5000","unit":"㎡","label":"创意空间"},
-    {"value":"20","unit":"+","label":"专业场景"},
-    {"value":"60","unit":"+","label":"团队伙伴"},
-    {"value":"100","unit":"+","label":"成长创作者"}
+    {
+      "value": "5000",
+      "unit": "㎡",
+      "label": "创意空间"
+    },
+    {
+      "value": "20",
+      "unit": "+",
+      "label": "专业场景"
+    },
+    {
+      "value": "60",
+      "unit": "+",
+      "label": "团队伙伴"
+    },
+    {
+      "value": "100",
+      "unit": "+",
+      "label": "成长创作者"
+    }
   ],
   "businesses": [
-    {"id":1,"title":"直播运营","desc":"从内容定位、场景搭建到运营增长，提供一站式直播解决方案。","icon":"✦"},
-    {"id":2,"title":"短视频制作","desc":"融合创意策划、拍摄剪辑与内容运营，持续打造优质作品。","icon":"✧"},
-    {"id":3,"title":"主播孵化","desc":"系统化培训与成长陪伴，打造多元化创作者矩阵。","icon":"◈"},
-    {"id":4,"title":"品牌推广","desc":"整合创意内容与传播运营，帮助品牌提升影响力。","icon":"◇"}
+    {
+      "id": 1,
+      "title": "直播运营",
+      "desc": "从内容定位、场景搭建到运营增长，提供一站式直播解决方案。",
+      "icon": "✦"
+    },
+    {
+      "id": 2,
+      "title": "短视频制作",
+      "desc": "融合创意策划、拍摄剪辑与内容运营，持续打造优质作品。",
+      "icon": "✧"
+    },
+    {
+      "id": 3,
+      "title": "主播孵化",
+      "desc": "系统化培训与成长陪伴，打造多元化创作者矩阵。",
+      "icon": "◈"
+    },
+    {
+      "id": 4,
+      "title": "品牌推广",
+      "desc": "整合创意内容与传播运营，帮助品牌提升影响力。",
+      "icon": "◇"
+    }
   ],
   "jobs": [
-    {"id":1,"title":"娱乐主播","type":"全职 / 兼职","salary":"薪资面议","desc":"热爱镜头表达，有责任心；经验不限，提供系统培训。"},
-    {"id":2,"title":"直播运营","type":"全职","salary":"薪资面议","desc":"负责直播策划、数据分析与主播成长支持。"},
-    {"id":3,"title":"短视频编导","type":"全职","salary":"薪资面议","desc":"负责选题策划、拍摄脚本和内容制作。"}
+    {
+      "id": 1,
+      "title": "娱乐主播",
+      "type": "全职 / 兼职",
+      "salary": "薪资面议",
+      "desc": "热爱镜头表达，有责任心；经验不限，提供系统培训。"
+    },
+    {
+      "id": 2,
+      "title": "直播运营",
+      "type": "全职",
+      "salary": "薪资面议",
+      "desc": "负责直播策划、数据分析与主播成长支持。"
+    },
+    {
+      "id": 3,
+      "title": "短视频编导",
+      "type": "全职",
+      "salary": "薪资面议",
+      "desc": "负责选题策划、拍摄脚本和内容制作。"
+    }
   ],
   "gallery": [
-    {"id":1,"title":"专业直播间","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌主视觉"},
-    {"id":2,"title":"主播培训","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌主视觉"},
-    {"id":3,"title":"短视频制作","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌主视觉"},
-    {"id":4,"title":"办公环境","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌主视觉"},
-    {"id":5,"title":"团队文化","image":"https://raw.githubusercontent.com/jun1914252-del/xingyao-media/main/public/xinhai-media-hero.svg","alt":"鑫海传媒品牌主视觉"}
+    {
+      "id": 1,
+      "title": "专业直播间",
+      "image": "/xinhai-media-hero.svg",
+      "alt": "鑫海传媒品牌主视觉"
+    },
+    {
+      "id": 2,
+      "title": "主播培训",
+      "image": "/xinhai-media-hero.svg",
+      "alt": "鑫海传媒品牌主视觉"
+    },
+    {
+      "id": 3,
+      "title": "短视频制作",
+      "image": "/xinhai-media-hero.svg",
+      "alt": "鑫海传媒品牌主视觉"
+    },
+    {
+      "id": 4,
+      "title": "办公环境",
+      "image": "/xinhai-media-hero.svg",
+      "alt": "鑫海传媒品牌主视觉"
+    },
+    {
+      "id": 5,
+      "title": "团队文化",
+      "image": "/xinhai-media-hero.svg",
+      "alt": "鑫海传媒品牌主视觉"
+    }
   ],
   "messages": [],
   "applications": []
