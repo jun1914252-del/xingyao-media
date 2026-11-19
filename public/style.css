@@ -96,3 +96,48 @@ input,textarea{max-width:100%;min-width:0}
  .hero-actions .btn{flex:1;min-width:0}
  .section-heading h2{font-size:34px}
 }
+
+.hero.has-image {
+  background: linear-gradient(90deg,#090d15ed,#090d1580), var(--scene-image) center / cover;
+}
+.about-visual.has-image {
+  background: linear-gradient(0deg,#0b1018a8,#0b101855), var(--scene-image) center / cover;
+}
+.gallery-card {
+  min-height: 0;
+  aspect-ratio: 4 / 3;
+}
+.gallery-card h3 {
+  right: 12px;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.image-preview[hidden] { display: none; }
+.image-preview {
+  display: block;
+  width: min(100%, 520px);
+  max-height: 240px;
+  object-fit: contain;
+  object-position: left center;
+  margin-top: 12px;
+}
+.image-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+@media (max-width: 600px) {
+  .hero.has-image {
+    background: linear-gradient(0deg,#090d15ef,#090d1580), var(--scene-image) center top / cover;
+  }
+  .gallery-card {
+    aspect-ratio: 6 / 5;
+  }
+  .gallery-card img {
+    object-fit: contain;
+    background: #101723;
+  }
+  .admin input, .admin textarea, .form-panel input, .form-panel textarea, .dialog-form input, .dialog-form textarea {
+    font-size: 16px;
+  }
+}

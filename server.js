@@ -4,18 +4,57 @@ const defaults={settings:{brand:'鑫海传媒',eyebrow:'数字内容 · 娱乐�
 if(!fs.existsSync(DATA)){fs.mkdirSync(path.dirname(DATA),{recursive:true});fs.writeFileSync(DATA,JSON.stringify(defaults,null,2))}
 let db=JSON.parse(fs.readFileSync(DATA,'utf8'));for(const k of ['settings','stats','businesses','jobs','gallery','messages','applications'])if(db[k]===undefined)db[k]=JSON.parse(JSON.stringify(defaults[k]));for(const [k,v] of Object.entries(defaults.settings))if(db.settings[k]===undefined)db.settings[k]=v;
 let sessions=new Map();const secret=process.env.ADMIN_PASSWORD;if(!secret)console.warn('ADMIN_PASSWORD 未设置，后台登录不可用');
-function save(){fs.writeFileSync(DATA,JSON.stringify(db,null,2))}
+function save(next=db) {
+  const temporary = DATA + '.tmp';
+  fs.writeFileSync(temporary, JSON.stringify(next, null, 2));
+  fs.renameSync(temporary, DATA);
+  db = next;
+}
 function send(res,status,obj){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(obj))}
-function parse(req){return new Promise((resolve,reject)=>{let b='';req.on('data',c=>{b+=c;if(b.length>3000000){reject(Error('请求过大'));req.destroy()}});req.on('end',()=>{try{resolve(JSON.parse(b||'{}'))}catch(e){reject(e)}})})}
+const MAX_BODY = 16 * 1024 * 1024;
+async function parse(req, limit=3000000) {
+  const chunks = [];
+  let size = 0;
+  for await (const chunk of req) {
+    size += chunk.length;
+    if (size <= limit) chunks.push(chunk);
+  }
+  if (size > limit) throw Object.assign(Error('请求过大，请压缩图片后重试'), {status:413});
+  return JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}');
+}
 function auth(req){const t=(req.headers.authorization||'').replace(/^Bearer /,'');return sessions.has(t)&&sessions.get(t)>Date.now()}
 const rateMap=new Map();function rate(req){const ip=req.socket.remoteAddress||'unknown',now=Date.now(),r=(rateMap.get(ip)||[]).filter(t=>now-t<60000);r.push(now);rateMap.set(ip,r);return r.length<=30}
-const clean=(x,n=1000)=>String(x??'').trim().slice(0,n),isImage=x=>!x||x==='/xinhai-media-hero.svg'||(/^https:\/\//i.test(x)&&x.length<2000)||(/^data:image\/(png|jpeg|webp|gif);base64,/i.test(x)&&x.length<2500000);
+const clean=(x,n=1000)=>String(x??'').trim().slice(0,n),isScene=x=>/^scenes\/[a-z0-9-]+\.(?:webp|jpg)$/.test(x),isImage=x=>!x||(typeof x==='string'&&(x==='/xinhai-media-hero.svg'||(isScene(x.slice(1))&&x.startsWith('/')&&fs.existsSync(path.join(ROOT,'public',x.slice(1))))||(/^https:\/\//i.test(x)&&x.length<2000)||(/^data:image\/(png|jpeg|webp|gif);base64,/i.test(x)&&x.length<2500000)));
 const publicData=()=>({settings:db.settings,stats:db.stats,businesses:db.businesses,jobs:db.jobs,gallery:db.gallery});
 const server=http.createServer(async(req,res)=>{const url=new URL(req.url,'http://localhost');try{
 if(url.pathname==='/api/site'&&req.method==='GET')return send(res,200,publicData());
 if(url.pathname==='/api/login'&&req.method==='POST'){if(!rate(req))return send(res,429,{error:'请求过于频繁'});const b=await parse(req),a=crypto.createHash('sha256').update(clean(b.password,200)).digest(),z=crypto.createHash('sha256').update(secret||'').digest();if(!secret||!crypto.timingSafeEqual(a,z)||b.username!=='admin')return send(res,401,{error:'账号或密码错误'});const token=crypto.randomBytes(32).toString('hex');sessions.set(token,Date.now()+8*3600000);return send(res,200,{token})}
 if(url.pathname==='/api/contact'&&req.method==='POST'){if(!rate(req))return send(res,429,{error:'提交太频繁'});const b=await parse(req),name=clean(b.name,60),phone=clean(b.phone,40);if(!name||!phone)return send(res,400,{error:'请填写姓名和联系方式'});db.messages.unshift({id:crypto.randomUUID(),name,phone,interest:clean(b.interest,100),message:clean(b.message,1000),createdAt:new Date().toISOString()});save();return send(res,201,{ok:true})}
 if(url.pathname==='/api/apply'&&req.method==='POST'){if(!rate(req))return send(res,429,{error:'提交太频繁'});const b=await parse(req),name=clean(b.name,60),phone=clean(b.phone,40),jobId=Number(b.jobId);if(!name||!phone||!db.jobs.some(j=>j.id===jobId))return send(res,400,{error:'请填写完整申请信息'});db.applications.unshift({id:crypto.randomUUID(),name,phone,jobId,intro:clean(b.intro,1000),createdAt:new Date().toISOString()});save();return send(res,201,{ok:true})}
-if(url.pathname.startsWith('/api/admin/')){if(!auth(req))return send(res,401,{error:'请先登录'});if(url.pathname==='/api/admin/data'&&req.method==='GET')return send(res,200,db);if(url.pathname==='/api/admin/save'&&req.method==='PUT'){const b=await parse(req);for(const k of ['stats','businesses','jobs','gallery'])if(k in b){if(!Array.isArray(b[k])||b[k].length>100)return send(res,400,{error:'数据格式不正确'});if(k==='gallery'&&b[k].some(x=>!isImage(x.image)))return send(res,400,{error:'图片请使用 HTTPS 图片地址或 PNG/JPG/WebP/GIF 文件'});db[k]=b[k].map((item,i)=>({...item,id:Number(item.id)||Date.now()+i}))}if('settings'in b&&b.settings&&typeof b.settings==='object'){for(const k of Object.keys(defaults.settings))if(k in b.settings){if(['heroImage','aboutImage'].includes(k)&&!isImage(b.settings[k]))return send(res,400,{error:'图片请使用 HTTPS 图片地址或 PNG/JPG/WebP/GIF 文件'});db.settings[k]=clean(b.settings[k],k.toLowerCase().includes('image')?2500000:3000)}}save();return send(res,200,{ok:true})}if(url.pathname==='/api/admin/delete'&&req.method==='POST'){const b=await parse(req);if(!['messages','applications'].includes(b.collection))return send(res,400,{error:'无效分类'});db[b.collection]=db[b.collection].filter(x=>x.id!==b.id);save();return send(res,200,{ok:true})}}
-if(req.method!=='GET')return send(res,404,{error:'未找到接口'});let file=url.pathname==='/'?'index.html':decodeURIComponent(url.pathname.slice(1));if(!['index.html','admin.html','style.css','app.js','admin.js','xinhai-media-hero.svg'].includes(file))return send(res,404,{error:'文件不存在'});const ext=path.extname(file),types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml'};res.writeHead(200,{'Content-Type':types[ext]});fs.createReadStream(path.join(ROOT,'public',file)).pipe(res)
-}catch(e){send(res,400,{error:'请求处理失败'})}});server.listen(process.env.PORT||3000,()=>console.log('网站运行于 http://localhost:'+(process.env.PORT||3000)));
+if(url.pathname.startsWith('/api/admin/')){if(!auth(req))return send(res,401,{error:'请先登录'});if(url.pathname==='/api/admin/data'&&req.method==='GET')return send(res,200,db);if(url.pathname==='/api/admin/save'&&req.method==='PUT'){const b = await parse(req, MAX_BODY);
+const next = {...db, settings:{...db.settings}};
+for (const key of ['stats', 'businesses', 'jobs', 'gallery']) {
+  if (!(key in b)) continue;
+  if (!Array.isArray(b[key]) || b[key].length > 100 || b[key].some(item => !item || typeof item !== 'object')) {
+    return send(res,400,{error:'数据格式不正确'});
+  }
+  if (key === 'gallery' && b[key].some(item => !isImage(item.image))) {
+    return send(res,400,{error:'请使用有效的站内图片、HTTPS 地址或上传图片'});
+  }
+  next[key] = b[key].map((item,index) => ({...item,id:Number(item.id)||Date.now()+index}));
+}
+if (b.settings && typeof b.settings === 'object') {
+  for (const key of Object.keys(defaults.settings)) {
+    if (!(key in b.settings)) continue;
+    const imageField = ['heroImage', 'aboutImage'].includes(key);
+    if (imageField && !isImage(b.settings[key])) {
+      return send(res,400,{error:'请使用有效的站内图片、HTTPS 地址或上传图片'});
+    }
+    next.settings[key] = clean(b.settings[key], imageField ? 2500000 : 3000);
+  }
+}
+save(next);
+return send(res,200,{ok:true});
+}if(url.pathname==='/api/admin/delete'&&req.method==='POST'){const b=await parse(req);if(!['messages','applications'].includes(b.collection))return send(res,400,{error:'无效分类'});db[b.collection]=db[b.collection].filter(x=>x.id!==b.id);save();return send(res,200,{ok:true})}}
+if(req.method!=='GET')return send(res,404,{error:'未找到接口'});let file=url.pathname==='/'?'index.html':decodeURIComponent(url.pathname.slice(1));if(!['index.html','admin.html','style.css','app.js','admin.js','xinhai-media-hero.svg'].includes(file)&&!isScene(file))return send(res,404,{error:'文件不存在'});const asset=path.join(ROOT,'public',file);if(!fs.existsSync(asset))return send(res,404,{error:'文件不存在'});const ext=path.extname(file),types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.webp':'image/webp','.jpg':'image/jpeg'};res.writeHead(200,{'Content-Type':types[ext]});fs.createReadStream(asset).pipe(res)
+}catch(e){send(res,e.status||400,{error:e.status?e.message:'请求处理失败'})}});server.listen(process.env.PORT||3000,()=>console.log('网站运行于 http://localhost:'+(process.env.PORT||3000)));

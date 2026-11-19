@@ -20,8 +20,8 @@
     "address": "示例地址 · 请在后台修改",
     "email": "hello@example.com",
     "accent": "#d9b77c",
-    "heroImage": "/xinhai-media-hero.svg",
-    "aboutImage": "/xinhai-media-hero.svg"
+    "heroImage": "/scenes/broadcast-studio.jpg",
+    "aboutImage": "/scenes/office.jpg"
   },
   "stats": [
     {
@@ -98,32 +98,38 @@
     {
       "id": 1,
       "title": "专业直播间",
-      "image": "/xinhai-media-hero.svg",
-      "alt": "鑫海传媒品牌主视觉"
+      "image": "/scenes/livestream.jpg",
+      "alt": "主播在环形补光灯下进行产品直播"
     },
     {
       "id": 2,
       "title": "主播培训",
-      "image": "/xinhai-media-hero.svg",
-      "alt": "鑫海传媒品牌主视觉"
+      "image": "/scenes/training.jpg",
+      "alt": "导师在镜头前指导主播练习"
     },
     {
       "id": 3,
       "title": "短视频制作",
-      "image": "/xinhai-media-hero.svg",
-      "alt": "鑫海传媒品牌主视觉"
+      "image": "/scenes/video-production.jpg",
+      "alt": "摄影师在摄影棚内操作摄像机"
     },
     {
       "id": 4,
       "title": "办公环境",
-      "image": "/xinhai-media-hero.svg",
-      "alt": "鑫海传媒品牌主视觉"
+      "image": "/scenes/office.jpg",
+      "alt": "设有绿植和玻璃隔断的开放式办公区"
     },
     {
       "id": 5,
       "title": "团队文化",
-      "image": "/xinhai-media-hero.svg",
-      "alt": "鑫海传媒品牌主视觉"
+      "image": "/scenes/team.jpg",
+      "alt": "团队成员围在笔记本电脑旁协作"
+    },
+    {
+      "id": 6,
+      "title": "专业演播厅",
+      "image": "/scenes/broadcast-studio.jpg",
+      "alt": "配有舞台灯光、大屏幕和摄像机的演播厅"
     }
   ],
   "messages": [],
