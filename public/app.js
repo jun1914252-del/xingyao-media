@@ -5,7 +5,17 @@ function setBackground(selector, image) {
   const target = $(selector);
   const valid = typeof image === 'string' && /^(https:\/\/|data:image\/(png|jpeg|webp|gif);base64,|\/xinhai-media-hero\.svg$|\/scenes\/[a-z0-9-]+\.(?:webp|jpg)$)/i.test(image);
   target.classList.toggle('has-image', valid);
-  target.style.setProperty('--scene-image', valid ? 'url("' + image.replace(/["\\\r\n]/g, encodeURIComponent) + '")' : 'none');
+  target.querySelector('.scene-image')?.remove();
+  if (!valid) return;
+  const photo = el('img', 'scene-image');
+  photo.alt = '';
+  photo.decoding = 'async';
+  photo.onerror = () => {
+    photo.remove();
+    target.classList.remove('has-image');
+  };
+  photo.src = image;
+  target.prepend(photo);
 }
 
 function fill(data){site=data;const s=data.settings;document.documentElement.style.setProperty('--gold',/^#[0-9a-f]{6}$/i.test(s.accent)?s.accent:'#d9b77c');$('#navBrand').textContent=s.brand;$('#footerBrand').textContent=s.brand;$('#eyebrow').textContent=s.eyebrow;$('#headline').textContent=s.headline;$('#subtitle').textContent=s.subtitle;$('#description').textContent=s.description;$('#aboutTagline').textContent=s.aboutTagline;$('#phone').textContent=s.phone;$('#address').textContent=s.address;$('#email').textContent=s.email;$('#footerTagline').textContent=s.footerTagline;$('#copyright').textContent=s.copyright;$('#businessHeading').textContent=s.businessHeading;$('#businessIntro').textContent=s.businessIntro;$('#galleryHeading').textContent=s.galleryHeading;$('#galleryIntro').textContent=s.galleryIntro;$('#jobsHeading').textContent=s.jobsHeading;$('#jobsIntro').textContent=s.jobsIntro;$('#contactHeading').textContent=s.contactHeading;$('#contactIntro').textContent=s.contactIntro;document.title=s.brand+' · '+s.headline;
@@ -16,4 +26,11 @@ const b=$('#businessGrid');b.replaceChildren();data.businesses.forEach((item,i)=
 const g=$('#gallery');g.replaceChildren();data.gallery.forEach(item=>{const card=el('article','gallery-card');const fallback=el('div','gallery-icon','✧');fallback.setAttribute('aria-hidden','true');card.append(fallback);if(item.image){const img=el('img');img.alt=item.alt||item.title;img.loading='lazy';img.decoding='async';img.onerror=()=>img.remove();img.src=item.image;card.append(img)}card.append(el('h3','',item.title));g.append(card)});
 const j=$('#jobs');j.replaceChildren();data.jobs.forEach(item=>{const card=el('article','job'),left=el('div');left.append(el('div','job-meta',item.type+' · '+item.salary),el('h3','',item.title),el('p','',item.desc));const btn=el('button','','立即申请 ↗');btn.onclick=()=>{$('#applyTitle').textContent='申请 · '+item.title;$('#applyForm').elements.jobId.value=item.id;$('#applyDialog').showModal()};card.append(left,btn);j.append(card)})}
 async function submitForm(form,url){const status=form.querySelector('.form-status'),btn=form.querySelector('button[type=submit]');btn.disabled=true;status.textContent='正在提交...';try{const body=Object.fromEntries(new FormData(form));await request(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});status.textContent='提交成功，我们会尽快联系您';form.reset()}catch(e){status.textContent=e.message}finally{btn.disabled=false}}
-$('#contactForm').onsubmit=e=>{e.preventDefault();submitForm(e.currentTarget,'/api/contact')};$('#applyForm').onsubmit=e=>{e.preventDefault();submitForm(e.currentTarget,'/api/apply')};$('#closeDialog').onclick=()=>$('#applyDialog').close();$('#menu').onclick=()=>$('#nav').classList.toggle('open');document.querySelectorAll('#nav a').forEach(a=>a.onclick=()=>$('#nav').classList.remove('open'));$('#year').textContent=new Date().getFullYear();request('/api/site').then(fill).catch(()=>{$('#description').textContent='网站内容暂时无法加载，请稍后重试。'});
+$('#contactForm').onsubmit=e=>{e.preventDefault();submitForm(e.currentTarget,'/api/contact')};$('#applyForm').onsubmit=e=>{e.preventDefault();submitForm(e.currentTarget,'/api/apply')};$('#closeDialog').onclick=()=>$('#applyDialog').close();const menu=$('#menu'),nav=$('#nav');
+function setMenu(open){nav.classList.toggle('open',open);menu.setAttribute('aria-expanded',String(open))}
+menu.onclick=()=>setMenu(!nav.classList.contains('open'));
+nav.querySelectorAll('a').forEach(link=>link.onclick=()=>setMenu(false));
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape'&&nav.classList.contains('open')){setMenu(false);menu.focus()}
+});
+$('#year').textContent=new Date().getFullYear();request('/api/site').then(fill).catch(()=>{$('#description').textContent='网站内容暂时无法加载，请稍后重试。'});
