@@ -8,24 +8,6 @@
 <rect width="1672" height="941" fill="url(#bg)"/>
 <ellipse cx="1330" cy="420" rx="530" ry="490" fill="url(#glow)" filter="url(#blur)"/>
 <g fill="none" stroke="url(#gold)" opacity=".42"><circle cx="1320" cy="430" r="330" stroke-width="2"/><circle cx="1320" cy="430" r="390" stroke-width="1"/><path d="M900 0 Q1450 350 1080 940" stroke-width="2"/><path d="M1050 0 Q1580 420 1260 940" stroke-width="1"/></g>
-<g transform="translate(100 180)">
- <path d="M10 98 L105 0 L205 98 L105 196 Z" fill="none" stroke="url(#gold)" stroke-width="8"/>
- <path d="M28 99 Q105 8 190 99 Q105 188 28 99Z" fill="none" stroke="url(#gold)" stroke-width="5"/>
- <path d="M55 145 L155 45" stroke="url(#gold)" stroke-width="12" stroke-linecap="round"/>
- <text x="250" y="94" fill="url(#gold)" font-size="104" font-weight="700" font-family="PingFang SC,Microsoft YaHei,sans-serif" letter-spacing="9">鑫海传媒</text>
- <text x="258" y="158" fill="#e8d2a9" font-size="38" font-family="Arial,sans-serif" letter-spacing="14">XINHAI MEDIA</text>
- <path d="M0 225 H700" stroke="url(#gold)" stroke-width="3"/>
- <text x="0" y="300" fill="#f2e5ca" font-size="42" font-family="PingFang SC,Microsoft YaHei,sans-serif" letter-spacing="4">直播电商 · 内容创作 · 主播孵化 · 品牌营销</text>
- <g transform="translate(0 390)" fill="none" stroke="url(#gold)" stroke-width="5">
-  <rect x="0" y="0" width="120" height="110" rx="18"/><path d="M42 34 L84 55 L42 78Z" fill="#d9b77c" stroke="none"/>
-  <rect x="190" y="0" width="120" height="110" rx="18"/><path d="M220 72 Q250 8 280 72 M250 28 V82" />
-  <rect x="380" y="0" width="120" height="110" rx="18"/><circle cx="440" cy="38" r="18"/><path d="M410 92 Q440 48 470 92"/>
-  <rect x="570" y="0" width="120" height="110" rx="18"/><path d="M595 82 V58 H615 V82 M625 82 V38 H645 V82 M655 82 V18 H675 V82"/>
- </g>
- <g fill="#e9d7b6" font-size="27" font-family="PingFang SC,Microsoft YaHei,sans-serif">
-  <text x="0" y="545">直播运营</text><text x="190" y="545">短视频制作</text><text x="380" y="545">主播孵化</text><text x="570" y="545">品牌推广</text>
- </g>
-</g>
 <g transform="translate(990 110)">
  <rect x="0" y="0" width="560" height="690" rx="28" fill="#ffffff" fill-opacity=".035" stroke="#d9b77c" stroke-opacity=".45"/>
  <circle cx="280" cy="260" r="165" fill="none" stroke="url(#gold)" stroke-width="8" opacity=".7"/>
@@ -35,8 +17,8 @@
  <path d="M194 300 Q190 205 280 205 Q370 205 366 300 Q340 255 280 254 Q220 255 194 300Z" fill="#29201b"/>
  <path d="M228 330 Q280 372 332 330" fill="none" stroke="#8d5548" stroke-width="7" stroke-linecap="round"/>
  <g fill="#d9b77c"><circle cx="100" cy="90" r="5"/><circle cx="470" cy="130" r="5"/><circle cx="465" cy="560" r="5"/></g>
- <text x="280" y="655" text-anchor="middle" fill="#e8d2a9" font-size="25" letter-spacing="6" font-family="Arial,sans-serif">CREATE · INSPIRE · GROW</text>
+ 
 </g>
 <path d="M0 820 Q450 760 850 840 T1672 820" fill="none" stroke="url(#gold)" stroke-width="2" opacity=".6"/>
-<text x="100" y="885" fill="#bba47e" font-size="19" letter-spacing="6" font-family="Arial,sans-serif">YOUR STORY · YOUR STAGE · YOUR SHINE</text>
+
 </svg>
